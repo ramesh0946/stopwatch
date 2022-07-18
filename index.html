@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-container">
+        <div id="container1">
+            0:0:0
+
+        </div>
+        <div class="buttons">
+            <button onclick="start()" id="start">start</button>
+            <button onclick="stop()" id="stop">stop</button>
+            <button onclick="resume()" id="resume">resume</button>
+            <button onclick="clear()" id="clear">clear</button>
+
+        </div>
+    </div>
+    
+    <script>
+
+        var hr = 0;
+        var min = 0;
+        var sec = 0;
+        var watch = " ";
+        function start(){
+            watch = setInterval(update,1000);
+
+        }
+
+        function update(){
+            sec = sec+1;
+            if(sec>59){
+                min = min+1;
+                sec = 0;
+                if(min>59){
+                    hr = hr+1;
+                    min = 0;
+                    sec = 0;
+                    if(hr>11){
+                        hr = 0;
+                        min = 0;
+                        sec = 0;
+                    }
+                }
+            }
+
+            document.getElementById("container1").innerHTML = hr+":"+min+":"+sec;
+            document.getElementById("clear").onclick = ()=>{clear();};
+            document.getElementById("stop").onclick = ()=>{stop();};
+            document.getElementById("resume").onclick = ()=>{resume();};
+
+            function stop(){
+                clearInterval(watch);
+
+            }
+
+            function resume(){
+                watch = setInterval(update,1000);
+
+            }
+
+            function clear(){
+                hr = 0;
+                min = 0;
+                sec = 0;
+                clearInterval(watch);
+                document.getElementById("container1").innerHTML = hr+":"+min+":"+sec;
+            }
+        }
+
+    </script>
+</body>
+</html>
